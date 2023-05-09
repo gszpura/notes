@@ -29,3 +29,10 @@ Skeleton code was added for:
 - db - sqlalchemy.ext.asyncio
 
 
+
+## Run
+> cd notes; npm start
+
+> poetry shell; cd notes_backend; python main.py
+
+Open localhost:3000.
