@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "notes-backend"
+version = "0.1.0"
+description = ""
+authors = ["Grzegorz Szpura <g.szpura@gmail.com>"]
+readme = "README.md"
+packages = [{include = "notes_backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.95.1"
+uvicorn = "^0.22.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
