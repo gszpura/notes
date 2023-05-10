@@ -23,13 +23,13 @@ class Config(BaseSettings):
 
     PROJECT_NAME: str | None = "FastAPI app template"
 
-    DATABASE_USER: str = "app"
-    DATABASE_PASSWORD: str = "password"
-    DATABASE_URL: str = "127.0.0.1"
-    DATABASE_NAME: str = "app"
+    DATABASE_USER: str = "app_user"
+    DATABASE_PASSWORD: str = "app_password"
+    DATABASE_HOST: str = "172.22.0.2"
+    DATABASE_NAME: str = "notes"
     DATABASE_PORT: int = 5432
-    DATABASE_POOL_SIZE: int = 5
-    DATABASE_MAX_OVERFLOW: int = 10
+    DATABASE_POOL_SIZE: int = 20
+    DATABASE_MAX_OVERFLOW: int = 50
 
     BACKEND_CORS_ORIGINS = "http://localhost:3000"
 

@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+#  app:
+#    build: .
+#    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - db
+#    environment:
+#      - DATABASE_URL=postgresql://user:password@db:5432/dbname
+#    ports:
+#      - "8000:8000"
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=app_user
+      - POSTGRES_PASSWORD=app_password
+      - POSTGRES_DB=notes
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      app_network:
+        ipv4_address: ${DB_IP}
+
+volumes:
+  pgdata:
+
+
+networks:
+  app_network:
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16

@@ -30,19 +30,23 @@ This is a Fast-API (python) app.
 
 Setup was done with:
 > poetry new notes_backend
-
-> poetry add fastapi uvicorn
-
-
-Skeleton code was added for:
-
-- db - sqlalchemy.ext.asyncio
+>
+> poetry add fastapi uvicorn sqlalchemy asyncpg
 
 
 
 ## Run
 > cd notes; npm start
-
+>
 > poetry shell; cd notes_backend; python main.py
 
 Open localhost:3000.
+
+
+
+## Manual setup of DB
+Run `psql` tool to enter db CLI:
+> psql -h <postgres_container_ip:172.22.0.2> -p <port:5432> -U <username:app_user> -W -d <db_name:notes> 
+
+Create tables:
+> psql -h 172.22.0.2 -p 5432 -U app_user -W -d notes -f ./modules/note/db/tables.sql
