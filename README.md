@@ -5,12 +5,22 @@ This is a React app created with:
 
 > npx create-react-app notes
 
-`npx` is a part of `npm` toolset that comes with node.
-To install node run:
+`npx` is a part of `npm` toolset that comes with node. </br>
+App runs on LTS node (18.16.0).</br>
+To install correct node version run:
 
-> sudo apt-get install -y nodejs
+> sudo apt install -y nodejs
+>
+> sudo apt install npm
+>
+> sudo npm install -g nvm
+>
+> nvm install --lts
 
-To run locally:
+This should update npm to compatible version as well.</br>
+To run `notes` app locally:
+> npm install
+> 
 > npm start
 
 For more details see notes/README.md
