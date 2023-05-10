@@ -3,6 +3,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
+interface NoteAddRequest {
+  note: string;
+}
+
+
 function App() {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
@@ -28,7 +33,8 @@ function App() {
 
   const addNote = async () => {
     try {
-      await axios.post('http://localhost:8000/notes', { content: newNote });
+      const noteToAdd: NoteAddRequest = { note: newNote };
+      await axios.post('http://localhost:8000/api/v1/note', noteToAdd);
       setNewNote('');
       fetchNotes();
     } catch (error) {
@@ -48,8 +54,11 @@ function App() {
       <button onClick={addNote}>Add Note</button>
       <div className="notes-container">
         {notes.map((note) => (
-          <div key={note} className="note-box">
-            {note}
+          <div>
+              <div key={note.id} className="note-box">
+                {note.note}
+              </div>
+          {note.created_at}
           </div>
         ))}
       </div>
