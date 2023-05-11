@@ -28,12 +28,15 @@ For more details see notes/README.md
 ## notes_backend
 This is a Fast-API (python) app.
 
-Setup was done with:
+Initial setup was done with:
 > poetry new notes_backend
 >
-> poetry add fastapi uvicorn sqlalchemy asyncpg
+> poetry add fastapi uvicorn sqlalchemy asyncpg python-dotenv
 
+NOTE: using `python-dotenv`, not `dotenv`, `dotenv` is not compatible with `pydantic`
 
+In order to build project quickly run:
+> poetry install
 
 ## Run
 > cd notes; npm start

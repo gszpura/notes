@@ -9,18 +9,23 @@ interface NoteAddRequest {
 
 
 function App() {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const notesUrl = apiUrl + '/api/v1/notes';
+  const addNoteUrl = apiUrl + '/api/v1/note';
+
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
 
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    setTimeout(() => {
+        fetchNotes();
+    }, 1000)
+  });
 
 
   const fetchNotes = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/v1/notes');
-      console.error('Received:', response.data.notes);
+      const response = await axios.get(notesUrl);
       setNotes(response.data.notes);
     } catch (error) {
       console.error('Error fetching notes:', error);
@@ -34,7 +39,7 @@ function App() {
   const addNote = async () => {
     try {
       const noteToAdd: NoteAddRequest = { note: newNote };
-      await axios.post('http://localhost:8000/api/v1/note', noteToAdd);
+      await axios.post(addNoteUrl, noteToAdd);
       setNewNote('');
       fetchNotes();
     } catch (error) {

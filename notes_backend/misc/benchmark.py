@@ -141,5 +141,8 @@ async def benchmark():
     await run_sqlalchemy_model_reuse_session()
     await run_asyncpg()
 
+    await clean_db()
+    await fill_db(1)
+
 
 asyncio.run(benchmark())

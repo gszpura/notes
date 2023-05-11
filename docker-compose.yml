@@ -1,17 +1,27 @@
 version: "3.8"
 
 services:
-#  app:
-#    build: .
-#    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-#    volumes:
-#      - .:/app
-#    depends_on:
-#      - db
-#    environment:
-#      - DATABASE_URL=postgresql://user:password@db:5432/dbname
-#    ports:
-#      - "8000:8000"
+  notes:
+    build: ./notes
+    ports:
+      - "3000:3000"
+    depends_on:
+      - notes_backend
+    networks:
+      - app_network
+    command: [ "npm", "start" ]
+
+  notes_backend:
+    build: ./notes_backend
+    volumes:
+      - .:/backend
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    networks:
+      app_network:
+        ipv4_address: ${BACKEND_IP}
 
   db:
     image: postgres:13
@@ -29,7 +39,7 @@ services:
 
 volumes:
   pgdata:
-
+    driver: local
 
 networks:
   app_network:
