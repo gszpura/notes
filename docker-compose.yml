@@ -37,6 +37,16 @@ services:
       app_network:
         ipv4_address: ${DB_IP}
 
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      app_network:
+        ipv4_address: ${METRICS_IP}
+
 volumes:
   pgdata:
     driver: local

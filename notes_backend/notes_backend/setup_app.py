@@ -1,3 +1,4 @@
+from prometheus_fastapi_instrumentator import Instrumentator
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from notes_backend.core.config import settings
@@ -15,6 +16,7 @@ def create_app() -> FastAPI:
     )
     setup_routers(app)
     setup_middlewares(app)
+    Instrumentator().instrument(app).expose(app)
     return app
 
 
