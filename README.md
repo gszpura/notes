@@ -45,6 +45,9 @@ In order to build project quickly run:
 
 Open localhost:3000.
 
+Alternatively:
+> docker-compose up --build
+
 
 
 ## Manual setup of DB
@@ -53,3 +56,19 @@ Run `psql` tool to enter db CLI:
 
 Create tables:
 > psql -h 172.22.0.2 -p 5432 -U app_user -W -d notes -f ./modules/note/db/tables.sql
+
+
+## Metrics
+Go to localhost:9090 where `prometheus` exposes its interface and type in the field some examples:
+> increase(http_requests_total[1h])
+> 
+> increase(http_requests_total{handler="/api/v1/note"}[15m])
+>
+> rate(http_requests_total{handler="/api/v1/notes"}[15m])
+
+
+## Deployment
+Deployment changes must be done in several places:
+- main `.env` file in main dir (to define IPs)
+- notes `.env` file in `notes` dir (to define backend endpoint)
+- prometheus.yml in main dir (to define targets for metrics scraping)
