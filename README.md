@@ -38,17 +38,29 @@ NOTE: using `python-dotenv`, not `dotenv`, `dotenv` is not compatible with `pyda
 In order to build project quickly run:
 > poetry install
 
-## Run
+## Run locally
 > cd notes; npm start
 >
 > poetry shell; cd notes_backend; python main.py
 
 Open localhost:3000.
 
-Alternatively:
+## Run with docker-compose
 > docker-compose up --build
 
+Open localhost:3000.
 
+## Run with k8s
+> cd kubernetes
+>
+> kubectl apply -f postgres.yml
+> 
+> kubectl apply -f notes_backend.yml
+
+To open a service:
+> minikube service list
+
+Get IP and port of `notes-backend-service` and open in the browser. (Frontend is not available yet)
 
 ## Manual setup of DB
 Run `psql` tool to enter db CLI:
@@ -57,6 +69,15 @@ Run `psql` tool to enter db CLI:
 Create tables:
 > psql -h 172.22.0.2 -p 5432 -U app_user -W -d notes -f ./modules/note/db/tables.sql
 
+## Manual setup of DB with k8s
+Copy SQL setup file (tables.sql) to a postgres pod (to main dir):
+> kubectl cp tables.sql postgres-statefulset-0:/
+
+Login to the pod:
+> kctl exec -it postgres-statefulset-0 -- /bin/bash
+
+Run psql tool:
+> psql -U app_user -W -d notes -f tables.sql
 
 ## Metrics
 Go to localhost:9090 where `prometheus` exposes its interface and type in the field some examples:
@@ -67,7 +88,7 @@ Go to localhost:9090 where `prometheus` exposes its interface and type in the fi
 > rate(http_requests_total{handler="/api/v1/notes"}[15m])
 
 
-## Deployment
+## Deployment (docker-compose)
 Deployment changes must be done in several places:
 - main `.env` file in main dir (to define IPs)
 - prometheus.yml in main dir (to define targets for metrics scraping)

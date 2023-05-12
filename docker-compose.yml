@@ -16,6 +16,7 @@ services:
 
   notes_backend1:
     build: ./notes_backend
+    #image: gszpura/notes_backend:0.1
     volumes:
       - .:/backend
     depends_on:
