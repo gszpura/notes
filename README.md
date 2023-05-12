@@ -70,5 +70,5 @@ Go to localhost:9090 where `prometheus` exposes its interface and type in the fi
 ## Deployment
 Deployment changes must be done in several places:
 - main `.env` file in main dir (to define IPs)
-- notes `.env` file in `notes` dir (to define backend endpoint)
 - prometheus.yml in main dir (to define targets for metrics scraping)
+- nginx.conf in main dir (to define which services a traffic should be redirected to)

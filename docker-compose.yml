@@ -6,12 +6,15 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - notes_backend
+      - notes_backend1
+      - notes_backend2
     networks:
       - app_network
+    environment:
+      - REACT_APP_API_URL=http://${LB_IP}:80
     command: [ "npm", "start" ]
 
-  notes_backend:
+  notes_backend1:
     build: ./notes_backend
     volumes:
       - .:/backend
@@ -22,6 +25,18 @@ services:
     networks:
       app_network:
         ipv4_address: ${BACKEND_IP}
+
+  notes_backend2:
+    build: ./notes_backend
+    volumes:
+      - .:/backend
+    depends_on:
+      - db
+    ports:
+      - "8001:8000"
+    networks:
+      app_network:
+        ipv4_address: ${BACKEND_IP2}
 
   db:
     image: postgres:13
@@ -46,6 +61,19 @@ services:
     networks:
       app_network:
         ipv4_address: ${METRICS_IP}
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - notes_backend1
+      - notes_backend2
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      app_network:
+        ipv4_address: ${LB_IP}
 
 volumes:
   pgdata:
